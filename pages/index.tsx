@@ -64,7 +64,7 @@ const Home: NextPage = () => {
       text: chatInput,
       sender: 0
     }, chatTemp.length)
-    chatTemp.push(newChat);
+    chatTemp.push(newChat as never);
     window.scrollTo(0, 0);
 
     setChatData(chatTemp);
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
         text: data,
         sender: 1
       }, chatTemp.length)
-      chatTemp.push(newChat);
+      chatTemp.push(newChat as never);
       setChatData(chatTemp);
       setChatInput("");
       scrollDown();
