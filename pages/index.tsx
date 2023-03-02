@@ -1,17 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import React, { useEffect, useState, useCallback } from "react"
 import { Configuration, OpenAIApi } from "openai";
-// import styles from '../styles/index.css'
 
 let helperTextt:any;
 
 var openai:OpenAIApi;
 
 const setUpBabe = async () => {
-
-  console.log(process.env.OPENAI_API_KEY)
 
   const configuration = new Configuration({
     apiKey: String(process.env.OPENAI_API_KEY)
@@ -43,8 +39,7 @@ const Home: NextPage = () => {
 
   const scrollDown = () => {
     setTimeout(()=>{
-      const chatArea = document.getElementById('chat_area');
-      console.log(chatArea?.scrollHeight)
+      const chatArea = document.getElementById('chat_area')!;
       chatArea.scrollTop = chatArea.scrollHeight;
     }, 300)
   }
