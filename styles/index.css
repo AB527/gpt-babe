@@ -1,0 +1,14 @@
+.chatArea {
+    height: 500px;
+    padding-bottom: 0 !important;
+    /* position: fixed; */
+}
+
+.chat_item {
+    width:fit-content;
+    max-width: 70%;
+}
+
+.main {
+    justify-content: space-around;
+}
