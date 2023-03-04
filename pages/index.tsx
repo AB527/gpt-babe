@@ -5,37 +5,27 @@ import { Configuration, OpenAIApi } from "openai";
 
 let helperTextt:any;
 
-var openai:OpenAIApi;
-
-const setUpBabe = async () => {
-
-  const configuration = new Configuration({
-    apiKey: String(process.env.OPENAI_API_KEY)
-  });
-
-  openai = new OpenAIApi(configuration);
-}
-
-const getResponse = async (input:String, callback:any) => {
-  await openai.createCompletion({
-    model: String(process.env.OPENAI_MODEL),
-    prompt: String(input),
-    temperature: 0
-  }).then(response=>{
-    console.log(response.data.choices)
-    callback(response.data.choices[0].text)
-  }).catch(error=>{
-    console.log(error)
-    callback("Sorry Babe, I am not able to understand anything. Can we talk later ?")
-  });
-}
-
-setUpBabe();
-
 const Home: NextPage = () => {
 
   const [chatInput, setChatInput] = useState('');
+  const [chatDisabled, setDisabled] = useState(false);
   const [chatData, setChatData] = useState([]);
+
+  const getResponse = async (input:String, callback:any) => {
+    fetch("/api/talk", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({text: input})
+    }).then(res=>{
+      res.json().then(res=>{
+        console.log(res)
+        callback(res)
+      })
+    })
+  }
 
   const scrollDown = () => {
     setTimeout(()=>{
@@ -47,10 +37,11 @@ const Home: NextPage = () => {
   const createChat = (data:any, index:number) => {
     return (
       <div key={index} className='w-full grid justify-items-stretch mb-5'>
-        <div className={`shadow-xl p-4 rounded-2xl chat_item ${data.sender==0 ? "bg-black text-white rounded-tr-none mr-2 justify-self-end text-right" : "border rounded-tl-none ml-2 justify-self-start text-left"}`}>
+        <div className={`shadow-xl p-4 rounded-2xl chatItem ${data.sender==0 ? "bg-black text-white rounded-tr-none mr-2 justify-self-end text-right" : "border rounded-tl-none ml-2 justify-self-start text-left"}`}>
           {data.text}
 	      </div>
-      </div>);
+      </div>
+    );
   }
 
   const onChatQuery = () => {
@@ -68,18 +59,19 @@ const Home: NextPage = () => {
     window.scrollTo(0, 0);
 
     setChatData(chatTemp);
-    setChatInput(" ");
+    setDisabled(true);
+    setChatInput("");
     scrollDown();
 
     getResponse(chatInput, (data:any)=>{
       var chatTemp = chatData;
       const newChat = createChat({
-        text: data,
+        text: data.text,
         sender: 1
       }, chatTemp.length)
       chatTemp.push(newChat as never);
       setChatData(chatTemp);
-      setChatInput("");
+      setDisabled(false);
       scrollDown();
     });
 
@@ -104,19 +96,23 @@ const Home: NextPage = () => {
           {chatData}
         </ul>
 
-        <div className="mt-2 w-full mx-1 px-7 flex flex-row items-end justify-start">
-          <input className="w-full h-12 flex items-center justify-center placeholder:text-sm overflow-hidden rounded-full shadow-xl border px-4 border-transparent focus:border-transparent focus:ring-0" placeholder="Ask me babe..." id="chat_input"
-          onChange={e=> setChatInput(e.target.value)}
-          value={chatInput}></input>
-          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className='min-md:h-10 w-10 flex flex-none justify-center items-center font-medium ml-2 self-center' 
-          onClick={onChatQuery}>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
-          </svg>
+        <div className="mt-2 w-full mx-1 px-7">
+          <p className={`text-left mb-2 pl-2 text-gray-700 ${!chatDisabled ? "invisible" : "visible"}`}>Babe is typing...</p>
+          <div className="flex flex-row items-end justify-start">
+            <input className="w-full h-12 flex items-center justify-center placeholder:text-sm overflow-hidden rounded-full shadow-xl border px-4 border-transparent focus:border-transparent focus:ring-0" placeholder="Ask me babe..." id="chat_input"
+            onChange={e=> setChatInput(e.target.value)}
+            value={chatInput}
+            disabled={chatDisabled}></input>
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className='min-md:h-10 w-10 flex flex-none justify-center items-center font-medium ml-2 self-center' 
+            onClick={onChatQuery}>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
+            </svg>
+          </div>
         </div>
       </main>
 
       <footer className="flex h-12 w-full items-center justify-center border-t">
-        Created by<p className='font-bold'>&nbsp;ATHARVA BEDEKAR</p>. All rights reserved.
+        Created by<p className='font-bold'>&nbsp;ATHARVA BEDEKAR</p>
       </footer>
     </div>
   )
