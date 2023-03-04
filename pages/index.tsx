@@ -88,7 +88,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>GPT Babe</title>
+        <title>GPT Babe </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
       </main>
 
       <footer className="flex h-12 w-full items-center justify-center border-t">
-        Created by<p className='font-bold'>&nbsp;ATHARVA BEDEKAR</p>
+        Created by<p className='font-bold'>&nbsp;ATHARVA BEDEKAR</p>. All rights reserved.
       </footer>
     </div>
   )
