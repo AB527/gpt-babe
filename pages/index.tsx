@@ -96,7 +96,7 @@ const Home: NextPage = () => {
           {chatData}
         </ul>
 
-        <div className="mt-2 w-full mx-1 px-7">
+        <div className="mt-1 w-full mx-1 px-7">
           <p className={`text-left mb-2 pl-2 text-gray-700 ${!chatDisabled ? "invisible" : "visible"}`}>Babe is typing...</p>
           <div className="flex flex-row items-end justify-start">
             <input className="w-full h-12 flex items-center justify-center placeholder:text-sm overflow-hidden rounded-full shadow-xl border px-4 border-transparent focus:border-transparent focus:ring-0" placeholder="Ask me babe..." id="chat_input"
