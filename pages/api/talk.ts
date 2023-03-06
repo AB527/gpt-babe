@@ -24,6 +24,7 @@ export default function handler(
     res.status(200).json({ text: response.data.choices[0].text})
   }).catch(error=>{
     console.log(error)
-    res.status(200).json({ text: "Sorry Babe, I am not able to understand anything. Can we talk later ?"})
+    // res.status(200).json({ text: "Sorry Babe, I am not able to understand anything. Can we talk later ?"})
+    res.status(200).json({ text: req.body.text})
   });
 }
