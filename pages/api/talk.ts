@@ -22,7 +22,7 @@ export default function handler(
     prompt: req.body.text,
     temperature: 0
   }).then(response=>{
-    res.status(200).json({ text: response.data.choices[0].text})
+    res.status(200).json({ text: response.data.choices[0].text, ko: "bkgh"})
   }).catch(error=>{
     console.log(error)
     // res.status(200).json({ text: "Sorry Babe, I am not able to understand anything. Can we talk later ?"})
