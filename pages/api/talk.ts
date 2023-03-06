@@ -19,12 +19,12 @@ export default function handler(
   const openai = new OpenAIApi(configuration);
 
   const updateData = async (logNew:any, cb:any) => {
-    var date = new Date();
-    logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    const jsonDirectory = path.join(process.cwd(), 'json');
-    const logData = JSON.parse(fs.readFileSync(jsonDirectory + '/queryLog.json').toString());
-    logData.push(logNew)
-    const res = fs.writeFileSync(jsonDirectory + '/queryLog.json', JSON.stringify(logData)); 
+    // var date = new Date();
+    // logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
+    // const jsonDirectory = path.join(process.cwd(), 'json');
+    // const logData = JSON.parse(fs.readFileSync(jsonDirectory + '/queryLog.json').toString());
+    // logData.push(logNew)
+    // const res = fs.writeFileSync(jsonDirectory + '/queryLog.json', JSON.stringify(logData)); 
     cb(logNew);  
   } 
 
