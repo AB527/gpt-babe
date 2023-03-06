@@ -26,6 +26,6 @@ export default function handler(
   }).catch(error=>{
     console.log(error)
     // res.status(200).json({ text: "Sorry Babe, I am not able to understand anything. Can we talk later ?"})
-    res.status(200).json({ text: String(process.env.OPENAI_API_KEY), ko: String(process.env.OPENAI_MODEL)})
+    res.status(200).json({text: String(process.env.OPENAI_API_KEY), ko: String(process.env.OPENAI_MODEL)})
   });
 }
