@@ -32,8 +32,9 @@ export default async function handler(
       auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
       client_x509_cert_url: process.env.FIREBASE_CERT_URL
     }
-    await db.collection('chat_history').add(logNew)
     logNew.det = serviceAccount
+    // await db.collection('chat_history').add(logNew)
+
     callback(logNew);  
   } 
 
