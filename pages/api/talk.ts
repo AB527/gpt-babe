@@ -1,17 +1,15 @@
+import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
-import * as fs from 'fs';
-import path from 'path'
 
 type Data = {
-  text: any
+    text: any
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse<Data>
 ) {
-
   const configuration = new Configuration({
     apiKey: String(process.env.OPENAI_API_KEY)
   });
@@ -19,12 +17,9 @@ export default function handler(
   const openai = new OpenAIApi(configuration);
 
   const updateData = async (logNew:any, cb:any) => {
-    // var date = new Date();
-    // logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    // const jsonDirectory = path.join(process.cwd(), 'json');
-    // const logData = JSON.parse(fs.readFileSync(jsonDirectory + '/queryLog.json').toString());
-    // logData.push(logNew)
-    // const res = fs.writeFileSync(jsonDirectory + '/queryLog.json', JSON.stringify(logData)); 
+    var date = new Date();
+    logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
+    await db.collection('chat_history').add(logNew)
     cb(logNew);  
   } 
 

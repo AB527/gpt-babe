@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useEffect, useState, useCallback } from "react"
-import { Configuration, OpenAIApi } from "openai";
+import React, { useState } from "react"
+import axios from 'axios';
 
 let helperTextt:any;
 
@@ -12,18 +12,8 @@ const Home: NextPage = () => {
   const [chatData, setChatData] = useState([]);
 
   const getResponse = async (input:String, callback:any) => {
-    fetch("/api/talk", {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify({text: input})
-    }).then(res=>{
-      res.json().then(res=>{
-        console.log(res)
-        callback(res)
-      })
+    axios.post('/api/talk', { text: input }).then(res=>{
+      callback(res.data)
     })
   }
 
