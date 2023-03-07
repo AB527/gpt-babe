@@ -2,9 +2,7 @@ import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
 
-type Data = {
-    text: any
-}
+type Data = any;
 
 export default async function handler(
     req: NextApiRequest,
@@ -47,7 +45,7 @@ export default async function handler(
       query: req.body.text,
       response: response.data.choices[0].text 
     }, (data:any)=>{
-      res.status(200).json({ text: data.response})
+      res.status(200).json({ text: data.response, xv: data })
     })
   }).catch(error=>{
     console.log(error)
@@ -56,7 +54,7 @@ export default async function handler(
       response: "Sorry Babe, I am not able to understand anything. Can we talk later ?", 
       msg: error.message
     }, (data:any)=>{
-      res.status(200).json({ text: data.response})
+      res.status(200).json({ text: data.response })
     })
   });
 }
