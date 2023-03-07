@@ -1,13 +1,24 @@
-import admin from 'firebase-admin';
-import serviceAccount from './ab527-sns-firebase-adminsdk-ucvor-aae6c96b8b.json';
+import firebase from 'firebase-admin';
 
-if (!admin.apps.length) {
+if (!firebase.apps.length) {
   try {
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
+    const serviceAccount = {
+        type: 'service_account',
+        project_id: process.env.FIREBASE_PROJECT_ID,
+        private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+        private_key: process.env.FIREBASE_PRIVATE_KEY,
+        client_email: process.env.FIREBASE_CLIENT_EMAIL,
+        client_id: process.env.FIREBASE_CLIENT_ID,
+        auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+        token_uri: 'https://oauth2.googleapis.com/token',
+        auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+        client_x509_cert_url: process.env.FIREBASE_CERT_URL
+    }
+    firebase.initializeApp({
+      credential: firebase.credential.cert(serviceAccount)
     });
   } catch (error) {
     console.log('Firebase admin initialization error', error.stack);
   }
 }
-export default admin.firestore();
+export default firebase.firestore();

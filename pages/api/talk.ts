@@ -10,17 +10,18 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
+
   const configuration = new Configuration({
     apiKey: String(process.env.OPENAI_API_KEY)
   });
 
   const openai = new OpenAIApi(configuration);
 
-  const updateData = async (logNew:any, cb:any) => {
+  const updateData = async (logNew:any, callback:any) => {
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
     await db.collection('chat_history').add(logNew)
-    cb(logNew);  
+    callback(logNew);  
   } 
 
   openai.createCompletion({
