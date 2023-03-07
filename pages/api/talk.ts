@@ -1,4 +1,4 @@
-import db from '../../utils/db'
+// import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
 
