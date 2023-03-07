@@ -54,7 +54,7 @@ export default async function handler(
       response: "Sorry Babe, I am not able to understand anything. Can we talk later ?", 
       msg: error.message
     }, (data:any)=>{
-      res.status(200).json({ text: data.response })
+      res.status(200).json({ text: data.response, xv: data })
     })
   });
 }
