@@ -1,4 +1,4 @@
-import db from '../../utils/db'
+// import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
 
@@ -19,17 +19,7 @@ export default async function handler(
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
     // await db.collection('chat_history').add(logNew)
-    // var res = await db.listCollections();
-    db.listCollections()
-    .then(snapshot=>{
-        var d:any = [];
-        snapshot.forEach((snaps:any) => {
-          // console.log(snaps["_queryOptions"].collectionId); // LIST OF ALL COLLECTIONS 
-          d.push(snaps["_queryOptions"].collectionId);
-        })
-        logNew.x = d;
-        callback(logNew); 
-    })
+    callback(logNew);
   } 
 
   openai.createCompletion({
