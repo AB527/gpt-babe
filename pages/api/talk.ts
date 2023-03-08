@@ -22,7 +22,7 @@ export default async function handler(
     // var res = await db.listCollections();
     db.listCollections()
     .then(snapshot=>{
-      var d:any = [];
+        var d:any = [];
         snapshot.forEach((snaps:any) => {
           // console.log(snaps["_queryOptions"].collectionId); // LIST OF ALL COLLECTIONS 
           d.push(snaps["_queryOptions"].collectionId);
