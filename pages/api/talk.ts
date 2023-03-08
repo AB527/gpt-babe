@@ -19,7 +19,12 @@ export default async function handler(
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
     var res = await db.collection('chat_history').add(logNew)
-    logNew.id = res.id;
+    try {
+      logNew.id = res.id;
+    } catch(err) {
+      console.log(err);
+      logNew.msg = res;
+    }
     callback(logNew);  
   } 
 
