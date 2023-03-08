@@ -18,7 +18,14 @@ export default async function handler(
   const updateData = async (logNew:any, callback:any) => {
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    await db.collection('chat_history').add(logNew)
+    // await db.collection('chat_history').add(logNew)
+    var res = await db.listCollections();
+    db.listCollections()
+    .then(snapshot=>{
+        snapshot.forEach((snaps:any) => {
+          console.log(snaps["_queryOptions"].collectionId); // LIST OF ALL COLLECTIONS
+        })
+    })
     callback(logNew);  
   } 
 
