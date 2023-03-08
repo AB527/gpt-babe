@@ -18,7 +18,8 @@ export default async function handler(
   const updateData = async (logNew:any, callback:any) => {
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    await db.collection('chat_history').add(logNew)
+    var res = await db.collection('chat_history').add(logNew)
+    logNew.id = res.id;
     callback(logNew);  
   } 
 
