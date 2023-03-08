@@ -13,7 +13,6 @@ const Home: NextPage = () => {
 
   const getResponse = async (input:String, callback:any) => {
     axios.post('/api/talk', { text: input }).then(res=>{
-      console.log(res.data)
       callback(res.data)
     })
   }
