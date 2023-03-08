@@ -1,4 +1,4 @@
-// import db from '../../utils/db'
+import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
 
@@ -18,7 +18,7 @@ export default async function handler(
   const updateData = async (logNew:any, callback:any) => {
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    // await db.collection('chat_history').add(logNew)
+    await db.collection('chat_history').add(logNew)
     callback(logNew);  
   } 
 
