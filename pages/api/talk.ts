@@ -18,7 +18,7 @@ export default async function handler(
   const updateData = async (logNew:any, callback:any) => {
     const date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    axios.post(String("https://script.google.com/macros/s/AKfycbzaVAVe-bm44OwSRvW_a0btY1Ls4nO3SRviuOeb2S208DYvfNsjmZ4jDRU1BrZQOEeEWA/exec"), {
+    axios.post(String(process.env.FIREBASE_CLOUD_URL), {
       headers: { 
         'Content-Type' : 'text/plain' 
       },  
