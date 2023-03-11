@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   const [chatDisabled, setDisabled] = useState(false);
   const [chatData, setChatData] = useState([]);
 
+
   const getResponse = async (input:String, callback:any) => {
     axios.post('/api/talk', { text: input }).then(res=>{
       callback(res.data)

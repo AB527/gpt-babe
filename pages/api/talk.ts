@@ -1,6 +1,7 @@
 // import db from '../../utils/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai"
+import axios from 'axios';
 
 type Data = any;
 
@@ -18,7 +19,12 @@ export default async function handler(
   const updateData = async (logNew:any, callback:any) => {
     var date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
-    // await db.collection('chat_history').add(logNew)
+    axios.post('https://script.google.com/macros/s/AKfycbzaVAVe-bm44OwSRvW_a0btY1Ls4nO3SRviuOeb2S208DYvfNsjmZ4jDRU1BrZQOEeEWA/exec', {
+      headers: { 
+        'Content-Type' : 'text/plain' 
+      },  
+      data: logNew
+    }).then(res=>{}).catch(err=>{})
     callback(logNew);
   } 
 
