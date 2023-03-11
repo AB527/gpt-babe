@@ -16,7 +16,7 @@ export default async function handler(
   const openai = new OpenAIApi(configuration);
 
   const updateData = async (logNew:any, callback:any) => {
-    var date = new Date();
+    const date = new Date();
     logNew.timestamp = date.toLocaleString('en-GB', { timeZone: 'UTC' })
     axios.post(String(process.env.FIREBASE_CLOUD_URL), {
       headers: { 
