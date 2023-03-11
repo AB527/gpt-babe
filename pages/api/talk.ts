@@ -23,8 +23,9 @@ export default async function handler(
         'Content-Type' : 'text/plain' 
       },  
       data: logNew
-    }).then(res=>{}).catch(err=>{})
-    callback(logNew);
+    }).then(res=>{
+      callback(logNew);
+    }).catch(err=>{})
   } 
 
   openai.createCompletion({
